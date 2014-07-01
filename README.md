@@ -1,5 +1,7 @@
 Video.js Error Messages
 =======================
+[![Build Status](https://travis-ci.org/brightcove/videojs-errors.svg?branch=master)](https://travis-ci.org/brightcove/videojs-errors)
+
 A plugin that displays user-friendly messages when video.js encounters an error.
 
 Using the Plugin
@@ -14,12 +16,28 @@ You probably want to include the default stylesheet, too. It displays error mess
 
 If you're not a fan of the default styling, you can drop in your own stylesheet. The only new element to worry about is `vjs-errors-dialog` which is the container for the error messages.
 
+### Supported Errors
+
 Once you've initialized video.js, you can activate the errors plugin. The plugin has a set of default error messages for the standard HTML5 video errors keyed off their runtime values:
 
 - MEDIA_ERR_ABORTED (numeric value `1`)
 - MEDIA_ERR_NETWORK (numeric value `2`)
 - MEDIA_ERR_DECODE (numeric value `3`)
 - MEDIA_ERR_SRC_NOT_SUPPORTED (numeric value `4`)
+- MEDIA_ERR_ENCRYPTED (numeric value `5`)
+
+### Custom Errors
+
+Additionally, 2 custom error scenarios have been added as reference for future extension. 
+
+- PLAYER_ERR_NO_SRC (numeric value `-1`)
+- PLAYER_ERR_TIMEOUT (numeric value `-2`)
+
+NOTES: 
+
+- Custom error definitions should be limited to the initCustomErrorConditions routine for encapsulation.
+- Custom errors should reference a code value of a negative integer.
+- Custom errors should reference a type beginning with 'PLAYER_ERR' versus the standardized 'MEDIA_ERR' to avoid confusion.
 
 If the video element emits any of those errors, the corresponding error message will be displayed. You can override and add custom error codes by supplying options to the plugin:
 
@@ -43,3 +61,7 @@ If an error is emitted that doesn't have an associated key, a generic, catch-all
 Known Issues
 ------------
 On iPhones, the video element intercepts all user interaction so error message dialogs miss the tap events and don't dismiss themselves. If your video is busted anyways, you may not be that upset about this.
+
+
+## Release History
+ - 0.1.0: Initial release

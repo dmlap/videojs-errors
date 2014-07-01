@@ -1,50 +1,82 @@
 <!doctype html>
 <html>
 <head>
-  <title>Error Plugin Example</title>
-  <link href="http://vjs.zencdn.net/4.0/video-js.css" rel="stylesheet">
-  <script src="http://vjs.zencdn.net/4.0/video.js"></script>
-  <link href="videojs.errors.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <title>Video.js Errors</title>
+
+  <link href="node_modules/video.js/dist/video-js/video-js.css" rel="stylesheet">
+	<link href="src/videojs.errors.css" rel="stylesheet">
+
+	<!-- Video.JS -->
+	<script src="node_modules/video.js/dist/video-js/video.js"></script>
+	<!-- Errors Plugin -->
+	<script src="src/videojs.errors.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .info {
+      background-color: #eee;
+      border: thin solid #333;
+      border-radius: 3px;
+      padding: 0 5px;
+      text-align: center;
+    }
+
+  </style>
 </head>
 <body>
-<video id="video" class="video-js vjs-default-skin" controls
-  preload="auto" width="640" height="264" poster="http://video-js.zencoder.com/oceans-clip.jpg" src="http://video-js.zencoder.com/oceans-clip.mp4"
-  data-setup="{}">
-<p>Your browser doesn't support video.
-</video>
-<script src="videojs.errors.js"></script>
-<script>
-// get a reference to the video.js player
-var video = videojs('video');
+  <div class="info">
+    <p>
+      You can see the Video.js Errors plugin in action below.
+      Look at the source of this page to see how to use it with your videos.
+    </p>
+  </div>
+  <h3>Standard Video Player Size 640x360</h3>
+  <video id="video"
+         class="video-js vjs-default-skin"
+         height="360"
+         width="640"
+         controls>
+    <p>
+      Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
+    </p>
+	</video>
+  <br />
+  <h3>Mini Video Player Size 300x150</h3>
+  <video id="mini"
+         class="video-js vjs-default-skin"
+         height="150"
+         width="300"
+         controls>
+	  <p>
+		  Your browser doesn't support video. Please <a href="http://browsehappy.com/">upgrade your browser</a> to see the example.
+	  </p>
+	</video>
 
-// initialize the errors plugin with a custom error code and message
-video.errors({
-  messages: {
-   3: 'This is an override for the generic MEDIA_ERR_DECODE',
-   'custom': 'This is a custom error message'
-  }
-});
+  <!--
+    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+    <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+    -->
 
-// we're going to trigger an error manually for demonstration purposes...
-video.trigger({
-  type:'error',
 
-  // this error code would simulate a network error
-  // code: 2,
+  <script>
+    var video = videojs('video');
 
-  // this error code would display our MEDIA_ERR_DECODE override message
-  // code: 3,
+      video.errors();
+			video.play();
 
-  // if the error code doesn't have an associated message, the 'unknown'
-  // message is displayed
-  // code: 'unknown',
+    var mini = videojs('mini');
 
-  // You can also specify a custom message like this one when you initialize
-  // the plugin
-  code: 'custom',
+      mini.errors();
+      mini.play();
 
-  target: video.el()
-});
-</script>
+	// Sample Custom Error
+	// If you want to fire a custom error at any time use
+	// the following syntax;
+	//player.error({code: 1, message:'test', status: 404});
+
+  </script>
 </body>
 </html>
